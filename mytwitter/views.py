@@ -99,7 +99,7 @@ def follow(request):
 		followuser = request.POST.get('follow')
 		try:
 			p = Follow.objects.get(username=followuser)
-		except User.DoesNotExist:
+		except Follow.DoesNotExist:
 			return HttpResponseRedirect("/")
 		else:
 			p = Follow.objects.get(username=request.user)

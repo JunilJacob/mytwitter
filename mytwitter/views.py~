@@ -86,7 +86,7 @@ def newpost(request):
 		if not to:
 				to=[request.user]
 		try:
-			p = Follow.objects.get(username=to)
+			p = Follow.objects.get(username=to[0])
 		except Follow.DoesNotExist:
 			return HttpResponse("error")
 		else:
@@ -99,7 +99,7 @@ def follow(request):
 		followuser = request.POST.get('follow')
 		try:
 			p = Follow.objects.get(username=followuser)
-		except User.DoesNotExist:
+		except Follow.DoesNotExist:
 			return HttpResponseRedirect("/")
 		else:
 			p = Follow.objects.get(username=request.user)
