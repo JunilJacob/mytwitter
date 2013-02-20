@@ -1,0 +1,20 @@
+input {
+    border: 1px solid #006;
+    background: #ffc;
+}
+input:hover {
+    border: 1px solid #f00;
+    background: #ff6;
+}
+br { clear: left; }
+body {
+	background: url(twitter-wallpaper.jpg) no-repeat;
+	background-size: 100%;
+	color: white;
+	font-weight: bold;
+	font-family: sans-serif;
+	font-size: 10pt;}
+a:link {color:white;}      /* unvisited link */
+a:visited {color:blue}  /* visited link */
+a:hover {color:red;}  /* mouse over link */
+
