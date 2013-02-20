@@ -3,6 +3,9 @@ from django.template import Context
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from twitterapp.models import Post,Follow
+from django.db.models import Q
+import re
 def template_rendering(path):
 	t = get_template(path)
 	html = t.render(Context({}))
@@ -13,8 +16,17 @@ def mainpage(request):
 		return HttpResponseRedirect("/account/login")
 	else:
 		t = get_template('registration/home.html')
-		html = t.render(Context({ 'user' : request.user}))
+		p = Follow.objects.get(username=request.user)
+		follow = p.following.split(" ")
+		try:
+			entries = Post.objects.filter(username__in=follow).order_by('-created')
+		except Post.DoesNotExist:
+			html = "ok"#t.render(Context({ 'user' : request.user,'entries': None}))
+		else:
+			html = t.render(Context({ 'user' : request.user,'entries':entries}))
 		return HttpResponse(html)
+		
+			
 def logincheck(request):
 	uname = request.POST.get('username')
 	upass = request.POST.get('password')
@@ -22,43 +34,78 @@ def logincheck(request):
 			try:
 				user = User.objects.get(username=uname)
 			except User.DoesNotExist:
-				html=template_rendering('registration/login.html')
-				return HttpResponse(html)
+				return HttpResponseRedirect("/account/login")
 			else:
 				if user.check_password(upass):
 					user = auth.authenticate(username=uname, password=upass)
 					if user is not None and user.is_active:
 						auth.login(request, user)
-					return HttpResponseRedirect("/")
+						return HttpResponseRedirect("/")
 				else:
-					html=template_rendering('registration/login.html')
-					return HttpResponse(html)
+					return HttpResponseRedirect("/account/login")
+	else:
+		return HttpResponseRedirect("/")		
 def createuser(request):
 	if request.method == 'POST':
 		uname = request.POST.get('username')
 		upass = request.POST.get('password')
-		ufirst = request.POST.get('firstname')
-		ulast = request.POST.get('lastname')
 		if uname and upass:
 			try:
 				user = User.objects.get(username=uname)
 			except User.DoesNotExist:
-				user = User.objects.create_user(username = uname,first_name=ufirst,last_name=ulast,password = upass)
+				user = User.objects.create_user(username = uname,password = upass)
 				user.save()
-				html=template_rendering('registration/login.html')
-				return HttpResponse(html)
+				user = Follow(username = uname,followers = "",following = uname)
+				user.save()
+				user = auth.authenticate(username=uname, password=upass)
+				if user is not None and user.is_active:
+					auth.login(request, user)
+				return HttpResponseRedirect("/")
 			else:
-				html=template_rendering('registration/signup.html')
-				return HttpResponse(html)
+				return HttpResponseRedirect("/account/create")
 	else:
 				html=template_rendering('registration/signup.html')
 				return HttpResponse(html)
 
 def login(request):
-	html=template_rendering('registration/login.html')
+	if request.user.is_authenticated():
+		return HttpResponseRedirect("/")
+	t = get_template('registration/login.html')
+	html = t.render(Context({}))
 	return HttpResponse(html)
 
 def logout(request):
 	auth.logout(request)
 	return HttpResponseRedirect("/")
 
+def newpost(request):
+	if request.method == 'POST':
+		data = request.POST.get('postdata')
+		user = request.user
+		to = re.findall(r'@([^\s@]+)',data)
+		if not to:
+				to=[request.user]
+		try:
+			p = Follow.objects.get(username=to)
+		except Follow.DoesNotExist:
+			return HttpResponse("error")
+		else:
+			data= re.sub(r'(@[^\s@]+)', r'', data)
+			p = Post(username = user, post = data,touser = to[0])
+			p.save()
+			return HttpResponseRedirect("/")
+def follow(request):
+	if request.method == 'POST':
+		followuser = request.POST.get('follow')
+		try:
+			p = Follow.objects.get(username=followuser)
+		except User.DoesNotExist:
+			return HttpResponseRedirect("/")
+		else:
+			p = Follow.objects.get(username=request.user)
+			p.following=p.following	+ " " +	str(followuser)
+			p.save()
+			p = Follow.objects.get(username=followuser)
+			p.followers=p.followers	+ " " +	str(request.user)
+			p.save()
+			return HttpResponseRedirect("/")

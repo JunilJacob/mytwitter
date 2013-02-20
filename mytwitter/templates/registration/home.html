@@ -1,36 +1,5 @@
 <style type ="text/css">
-.create {
-	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
-	background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
-	background-color:#79bbff;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #84bbf3;
-	display:inline-block;
-	color:#ffffff;
-	font-family:arial;
-	font-size:13px;
-	font-weight:bold;
-	padding:6px 14px;
-	text-decoration:none;
-	text-shadow:1px 1px 0px #528ecc;
-}
-.create:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
-	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
-	background-color:#378de5;
-}
-.create:active {
-	position:relative;
-	top:1px;
-}
-.signup {
+.mybutton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
 	box-shadow:inset 0px 1px 0px 0px #f29c93;
@@ -51,13 +20,13 @@
 	text-decoration:none;
 	text-shadow:1px 1px 0px #b23e35;
 }
-.signup:hover {
+.mybutton:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00) );
 	background:-moz-linear-gradient( center top, #ce0100 5%, #fe1a00 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00');
 	background-color:#ce0100;
 }
-.signup:active {
+.mybutton:active {
 	position:relative;
 	top:1px;
 }
@@ -76,8 +45,61 @@ h1 {
 	font-size:20px;
 	font-weight:bold;
 }
+textarea {
+	font-family:arial;
+	font-size:15px;
+	border:1px solid white;
+	position:fixed
+	left:0
+	top:0
+}
+a.postop,input.postop {
+	position:fixed;
+	top:10px;
+}
+input.posleft1 {
+	position:fixed;
+	left:200px;
+
+}
+a.posleft2 {
+	position:fixed;
+	left:300px;
+
+}
+.entries{
+	font-family:arial;
+	font-size:13px;
+	color:black;
+	
+}
+div.post{
+	position:fixed;
+	top:50;
+	left:500;
+	
+
+}
 </style>
-<html><h1>Hai {{ user }} ,<h1>
-<a href="/account/post/new" class="create">New post</a>
-<a href="/account/logout" class="signup">Sign out</a>
+<html><title>My twitter:Home</title><h1>Hai {{ user }} ,<h1>
+<a href="/account/logout" class="mybutton postop posleft2" id="signout">Sign out</a>
+<form action="/post/new" method="post">
+<textarea rows="10" cols="50" maxlength="140" id="postdata" name="postdata" required="true">
+</textarea>
+<input type="submit" class="mybutton postop posleft1" id="newpost" value="Post"></form>
+<div>
+<form action = /follow method="post">
+<input type=input name="follow" id="follow" >
+<input type=submit class = "mybutton" value ="Follow"></form>
+</div>
+<div id="posts" class=post>
+{% block body %}
+	<u1 class =entries>
+		{% for entry in entries %}
+			<li>{{entry.post}} {{entry.username}}
+		{% endfor %}
+	</u1>
+{% endblock %}
+</div>
 </html>
+

@@ -1,5 +1,5 @@
 <style type ="text/css">
-.signup {
+.mybutton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
 	box-shadow:inset 0px 1px 0px 0px #f29c93;
@@ -20,13 +20,13 @@
 	text-decoration:none;
 	text-shadow:1px 1px 0px #b23e35;
 }
-.signup:hover {
+.mybutton:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00) );
 	background:-moz-linear-gradient( center top, #ce0100 5%, #fe1a00 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00');
 	background-color:#ce0100;
 }
-.signup:active {
+.mybutton:active {
 	position:relative;
 	top:1px;
 }
@@ -49,14 +49,14 @@ body {
 
 
 </style>
-<html><head></head><title>Log in</title><body>
+<html><head></head><title>My twitter:Log in</title><body>
 <center><form method ="POST" action="/account/login/check">
 <br><label>Username</label><br>
-<input type="text" name="username"><br>
+<input type="text" name="username" required="true"><br>
 <label>Password</label><br>
-<input type="password" name="password"><br><br>
-<input class ="signup" type=submit value="Log in">
-<a href="/account/create" class="signup">Sign Up</a>
+<input type="password" name="password" required="true"><br><br>
+<input class ="mybutton" type=submit value="Log in">
+<a href="/account/create" class="mybutton">Sign Up</a>
 </form>
 </center>
 </body>
