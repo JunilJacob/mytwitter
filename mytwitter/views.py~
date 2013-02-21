@@ -55,7 +55,7 @@ def createuser(request):
 			except User.DoesNotExist:
 				user = User.objects.create_user(username = uname,password = upass)
 				user.save()
-				user = Follow(username = uname,followers = "",following = uname)
+				user = Follow(username = uname,following = uname)
 				user.save()
 				user = auth.authenticate(username=uname, password=upass)
 				if user is not None and user.is_active:
@@ -82,18 +82,9 @@ def newpost(request):
 	if request.method == 'POST':
 		data = request.POST.get('postdata')
 		user = request.user
-		to = re.findall(r'@([^\s@]+)',data)
-		if not to:
-				to=[request.user]
-		try:
-			p = Follow.objects.get(username=to[0])
-		except Follow.DoesNotExist:
-			return HttpResponse("error")
-		else:
-			data= re.sub(r'(@[^\s@]+)', r'', data)
-			p = Post(username = user, post = data,touser = to[0])
-			p.save()
-			return HttpResponseRedirect("/")
+		p = Post(username = user, post = data)
+		p.save()
+		return HttpResponseRedirect("/")
 def follow(request):
 	if request.method == 'POST':
 		followuser = request.POST.get('follow')
@@ -104,8 +95,5 @@ def follow(request):
 		else:
 			p = Follow.objects.get(username=request.user)
 			p.following=p.following	+ " " +	str(followuser)
-			p.save()
-			p = Follow.objects.get(username=followuser)
-			p.followers=p.followers	+ " " +	str(request.user)
 			p.save()
 			return HttpResponseRedirect("/")
