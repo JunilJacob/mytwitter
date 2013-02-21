@@ -1,5 +1,5 @@
 <style type ="text/css">
-* { margin: 0; padding: 0px; }
+
 .mybutton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
@@ -46,12 +46,14 @@ label {
 body {
 	background: url(http://walfast.com/wp-content/uploads/2013/01/twitter-wallpaper.jpg) no-repeat;
 	background-size: 100%;
+	color:red;
+	font-weight:bold;
 	}
 
 
 </style>
 <html><head></head><title>My twitter:Log in</title><body>
-<center><form method ="POST" action="/account/login/check">
+<center><form method ="POST" action="/account/login/check"><br>{{message}}
 <br><label>Username</label><br>
 <input type="text" name="username" required="true"><br>
 <label>Password</label><br>

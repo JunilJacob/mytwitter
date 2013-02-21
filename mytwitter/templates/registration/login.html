@@ -46,12 +46,14 @@ label {
 body {
 	background: url(http://walfast.com/wp-content/uploads/2013/01/twitter-wallpaper.jpg) no-repeat;
 	background-size: 100%;
+	color:white;
+	font-weight:bold;
 	}
 
 
 </style>
 <html><head></head><title>My twitter:Log in</title><body>
-<center><form method ="POST" action="/account/login/check">
+<center><form method ="POST" action="/account/login/check"><br>{{message}}
 <br><label>Username</label><br>
 <input type="text" name="username" required="true"><br>
 <label>Password</label><br>

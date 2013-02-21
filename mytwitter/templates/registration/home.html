@@ -204,8 +204,9 @@ body {
 	background-size: 100%;
 	color:white;
 	font-family:arial;
-	font-size:13px;
+	font-size:10px;
 	font-weight:bold;
+	color:yellow;	
 	}
 
 h1 {
@@ -221,44 +222,19 @@ textarea {
 	left:0
 	top:0
 }
-.posleft1 {
-	position:absolute;
-	top:10px;
-	left:200px;
-
-}
-.posleft2 {
-	position:absolute;
-	top:10px;
-	left:300px;
-
-}
-.entries{
-	font-family:arial;
-	font-size:13px;
-	color:black;
-	
-}
-.post{
-	position:absolute;
-	top:50;
-	left:500;
-	
-
-}
 </style>
 <html><title>My twitter:Home</title><h1>Hai {{ user }} ,<h1>
 <div><form action="/post/new" method="post">
-<input type="submit" class="mybutton posleft1" id="newpost" value="Tweet">
-<a href="/account/logout" class="mybutton posleft2" id="signout">Sign out</a>
-<textarea rows="10" cols="50" maxlength="140" id="postdata" name="postdata" required="true">
-</textarea>
+<textarea rows="10" cols="50" maxlength="140" id="postdata" name="postdata" required="true"></textarea><br>
+<input type="submit" class="mybutton " id="newpost" value="Tweet">
+<a href="/account/logout" class="mybutton" id="signout">Sign out</a>
+
 </form>
 </div>
 <div>
-<form action = /follow method="post" class=post>
+<form action = /follow method="post">
 <input type=input name="follow" id="follow" required="true">
-<input type=submit class = "mybutton" value ="Follow"></form>
+<input type=submit class = "mybutton" value ="Follow">{{message}}</form>
 </div>
 <div>
 {% block body %}
