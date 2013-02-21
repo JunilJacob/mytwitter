@@ -1,4 +1,172 @@
+
 <style type ="text/css">
+.post_table {
+
+	margin:0px;padding:0px;
+
+	width:100%;
+	-moz-border-radius-bottomleft:9px;
+
+	-webkit-border-bottom-left-radius:9px;
+
+	border-bottom-left-radius:9px;
+
+	
+
+	-moz-border-radius-bottomright:9px;
+
+	-webkit-border-bottom-right-radius:9px;
+
+	border-bottom-right-radius:9px;
+
+	
+
+	-moz-border-radius-topright:9px;
+
+	-webkit-border-top-right-radius:9px;
+
+	border-top-right-radius:9px;
+
+	
+
+	-moz-border-radius-topleft:9px;
+
+	-webkit-border-top-left-radius:9px;
+
+	border-top-left-radius:9px;
+
+}.post_table table{
+
+	width:70%;
+
+	height:10%;
+
+	margin:0px;padding:0px;
+
+}.post_table tr:last-child td:last-child {
+
+	-moz-border-radius-bottomright:9px;
+
+	-webkit-border-bottom-right-radius:9px;
+
+	border-bottom-right-radius:9px;
+
+}
+
+.post_table table tr:first-child td:first-child {
+
+	-moz-border-radius-topleft:9px;
+
+	-webkit-border-top-left-radius:9px;
+
+	border-top-left-radius:9px;
+
+}
+
+.post_table table tr:first-child td:last-child {
+
+	-moz-border-radius-topright:9px;
+
+	-webkit-border-top-right-radius:9px;
+
+	border-top-right-radius:9px;
+
+}.post_table tr:last-child td:first-child{
+
+	-moz-border-radius-bottomleft:9px;
+
+	-webkit-border-bottom-left-radius:9px;
+
+	border-bottom-left-radius:9px;
+
+}.post_table tr:hover td{
+
+	background-color:#82c0ff;
+
+	
+
+}
+
+.post_table tr:first-child td{
+
+		background:-o-linear-gradient(bottom, #dce6ef 5%, #dce6ef 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dce6ef), color-stop(1, #dce6ef) );
+	background:-moz-linear-gradient( center top, #dce6ef 5%, #dce6ef 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#dce6ef", endColorstr="#dce6ef");	background: -o-linear-gradient(top,#dce6ef,dce6ef);
+
+
+	background-color:#dce6ef;
+
+	text-align:center;
+
+	border-width:0px 0px 1px 1px;
+
+	font-size:12px;
+
+	font-family:Arial;
+
+	font-weight:bold;
+
+	color:#0f0e0e;
+
+}
+.post_table tr:first-child:hover td{
+
+		background:-o-linear-gradient(bottom, #dce6ef 5%, #dce6ef 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dce6ef), color-stop(1, #dce6ef) );
+	background:-moz-linear-gradient( center top, #dce6ef 5%, #dce6ef 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#dce6ef", endColorstr="#dce6ef");	background: -o-linear-gradient(top,#dce6ef,dce6ef);
+
+
+	background-color:#dce6ef;
+
+}
+
+.post_table tr:first-child td:first-child{
+
+	border-width:0px 0px 1px 0px;
+
+}
+
+.post_table tr:first-child td:last-child{
+
+	border-width:0px 0px 1px 1px;
+
+}
+
+.post_table td{
+
+	
+
+	background-color:#c5d2e0;
+
+	border:1px solid #000000;
+
+	border-width:0px 1px 1px 0px;
+
+	text-align:left;
+
+	padding:7px;
+
+	font-size:12px;
+
+	font-family:Verdana;
+
+	font-weight:normal;
+
+	color:#000000;
+
+}.post_table tr:last-child td{
+
+	border-width:0px 1px 0px 0px;
+
+}.post_table tr td:last-child{
+
+	border-width:0px 0px 1px 0px;
+
+}.post_table tr:last-child td:last-child{
+
+	border-width:0px 0px 0px 0px;
+
+}
 .mybutton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
@@ -32,7 +200,7 @@
 }
 
 body {
-	background: url(http://walfast.com/wp-content/uploads/2013/01/twitter-wallpaper.jpg) no-repeat;
+	background: url(http://walfast.com/wp-content/uploads/2013/01/twitter-wallpaper.jpg);
 	background-size: 100%;
 	color:white;
 	font-family:arial;
@@ -49,21 +217,19 @@ textarea {
 	font-family:arial;
 	font-size:15px;
 	border:1px solid white;
-	position:fixed
+	position:absolute
 	left:0
 	top:0
 }
-a.postop,input.postop {
-	position:fixed;
+.posleft1 {
+	position:absolute;
 	top:10px;
-}
-input.posleft1 {
-	position:fixed;
 	left:200px;
 
 }
-a.posleft2 {
-	position:fixed;
+.posleft2 {
+	position:absolute;
+	top:10px;
 	left:300px;
 
 }
@@ -73,8 +239,8 @@ a.posleft2 {
 	color:black;
 	
 }
-div.post{
-	position:fixed;
+.post{
+	position:absolute;
 	top:50;
 	left:500;
 	
@@ -82,22 +248,37 @@ div.post{
 }
 </style>
 <html><title>My twitter:Home</title><h1>Hai {{ user }} ,<h1>
-<a href="/account/logout" class="mybutton postop posleft2" id="signout">Sign out</a>
-<form action="/post/new" method="post">
+<div><form action="/post/new" method="post">
+<input type="submit" class="mybutton posleft1" id="newpost" value="Tweet">
+<a href="/account/logout" class="mybutton posleft2" id="signout">Sign out</a>
 <textarea rows="10" cols="50" maxlength="140" id="postdata" name="postdata" required="true">
 </textarea>
-<input type="submit" class="mybutton postop posleft1" id="newpost" value="Post"></form>
+</form>
+</div>
 <div>
-<form action = /follow method="post">
-<input type=input name="follow" id="follow" >
+<form action = /follow method="post" class=post>
+<input type=input name="follow" id="follow" required="true">
 <input type=submit class = "mybutton" value ="Follow"></form>
 </div>
-<div id="posts" class=post>
+<div>
 {% block body %}
-	<u1 class =entries>
-		{% for entry in entries %}
-			<li>{{entry.post}} {{entry.username}}
-		{% endfor %}
+	<u1 class = "post_table">
+		
+			
+		{% if entries %}
+			<table>
+				<tr>
+		        <td>Tweets</td>
+		        <td>User</td>
+		        </tr>
+		{% for entry in entries %}		
+				<tr>
+		        <td>{{entry.post}}</td>
+		        <td>{{entry.username}}</td>
+		        </tr>
+	    {% endfor %}
+    		</table>
+		{% endif %}		
 	</u1>
 {% endblock %}
 </div>

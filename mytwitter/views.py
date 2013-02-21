@@ -22,7 +22,7 @@ def mainpage(request):
 		follow = p.following.split(" ")
 		try:
 	#Retreiving the require posts
-			entries = Post.objects.filter(username__in=follow).order_by('-created')
+			entries = Post.objects.filter(username__in=follow).order_by('-created')[:10]
 		except Post.DoesNotExist:
 			t.render(Context({ 'user' : request.user,'entries': None}))
 		else:
