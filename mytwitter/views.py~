@@ -4,6 +4,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from twitterapp.models import Post,Follow
+from django.db.models import Q
 #users home page
 def mainpage(request):
 	#if not an authenticted user redirect to login page
@@ -22,12 +23,12 @@ def mainpage(request):
 			if status:
 				html = t.render(Context({ 'user' : request.user, 'entries' : None, 'message' : "User does not exist"}))
 			else:
-				html = t.render(Context({ 'user' : request.user, 'entries' : None, 'message' : "User does not exist"}))
+				html = t.render(Context({ 'user' : request.user, 'entries' : None, 'message' : ""}))
 		else:
 			if status:
 				html = t.render(Context({ 'user' : request.user, 'entries' : entries, 'message' : "User does not exist"}))
 			else:
-				html = t.render(Context({ 'user' : request.user, 'entries' : entries, 'message' : "User does not exist"}))
+				html = t.render(Context({ 'user' : request.user, 'entries' : entries, 'message' : ""}))
 
 		return HttpResponse(html)
 		
@@ -117,18 +118,46 @@ def newpost(request):
 
 #follow a user
 def follow(request):
-	if request.method == 'POST':
-		followuser = request.POST.get('follow')
-		try:
-	#check whether the user to be followed exist
-			p = Follow.objects.get(username = followuser)
-		except Follow.DoesNotExist:
-	#if not reload homepage with fail status
-			return HttpResponseRedirect("/?status=fail")
-		else:
-	#if user exist add the user to the field following
-			p = Follow.objects.get(username = request.user)
-			if not followuser in  p.following.split(" "):						
-				p.following = p.following	+ " " +	str(followuser)
-				p.save()
-			return HttpResponseRedirect("/")
+	followuser=request.GET.get('user')
+	users=Follow.objects.filter(username=request.user)[0].following.split(" ")
+	users.append(str(followuser))
+	p=Follow.objects.filter(username=request.user)[0]
+	p.following=" ".join(users)
+	p.save()
+	return HttpResponseRedirect("/")
+
+#search for a user
+def search(request):
+	searchuser=request.GET.get('searchuser')
+	usersfollowing=Follow.objects.filter(username=request.user)[0].following.split(" ")
+	usersnotfollowing=Follow.objects.filter(~Q(username__in = usersfollowing))
+	if searchuser:
+		usersnotfollowing=Follow.objects.filter(~Q(username__in = usersfollowing))
+		t = get_template('registration/search.html')
+		html = t.render(Context({'user' : request.user, 'entries': usersnotfollowing}))
+		return HttpResponse(html)
+	else:
+		usersnotfollowing=Follow.objects.filter(~Q(username__in = usersfollowing))
+		t = get_template('registration/search.html')
+		html = t.render(Context({'user' : request.user, 'entries': usersnotfollowing}))
+		return HttpResponse(html)
+
+#show the list of users that we are following
+def following(request):
+	usersfollowing=Follow.objects.filter(username=request.user)[0].following.split(" ")
+	usersfollowing.remove(str(request.user))
+	users=Follow.objects.filter(username__in = usersfollowing)
+	t = get_template('registration/following.html')
+	html = t.render(Context({'user' : request.user,'entries':users}))
+	return HttpResponse(html)
+
+#unfollow a user
+def unfollow(request):
+	unfollowuser=request.GET.get('user')
+	users=Follow.objects.filter(username=request.user)[0].following.split(" ")
+	users.remove(unfollowuser)
+	p=Follow.objects.filter(username=request.user)[0]
+	p.following=" ".join(users)
+	p.save()
+	return HttpResponseRedirect("/following")
+	

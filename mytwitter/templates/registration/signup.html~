@@ -47,7 +47,7 @@ label {
 body {
 	background: url(http://walfast.com/wp-content/uploads/2013/01/twitter-wallpaper.jpg) no-repeat;
 	background-size: 100%;
-	color:red;
+	color:white;
 	font-weight:bold;
 	}
 
@@ -56,7 +56,7 @@ body {
 <html><title>Sign Up:create new account</title><body><br>
 <center><form method ="POST" action="/account/create">{{message}}<br>
 <label>Username</label><br>
-<input type="text" name="username" id="username" maxlength="25" required="true"><br>
+<input type="text" name="username" id="username" maxlength="25" required="true" pattern="[A-Za-z]*"><br>
 <label>Password</label><br>
 <input type="password" name="password" id="password" required="true"><br><br>
 <input id ="create" class ="mybutton" type=submit value="Create Account">

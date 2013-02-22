@@ -1,10 +1,13 @@
 from django.conf.urls import patterns, include, url
-from views import mainpage,logincheck,login,logout,createuser,newpost
+from views import mainpage,logincheck,login,logout,createuser,newpost,follow,search,following
 urlpatterns = patterns('',(r'^$', mainpage),
 	(r'^post/new', newpost),
     (r'^account/create$', createuser),
     (r'^account/login$',  login),
     (r'^account/logout$', logout),
-	(r'^account/login/check',logincheck),
-	(r'follow',follow)
+	(r'^account/login/check$',logincheck),
+	(r'^following$',following),	
+	(r'^follow$',follow),
+	(r'^search$',search),
+	
 )

@@ -206,7 +206,7 @@ body {
 	font-family:arial;
 	font-size:10px;
 	font-weight:bold;
-	color:red;	
+	color:yellow;	
 	}
 
 h1 {
@@ -223,20 +223,12 @@ textarea {
 	top:0
 }
 </style>
-<html><title>My twitter:Home</title><h1>Hai {{ user }} ,<h1>
+<html><title>My twitter:Home</title><h1>Hai {{ user }},  <a href="/following" class="mybutton">Following</a><a href="/search" class="mybutton">Search</a><a href="/account/logout" class="mybutton" id="signout">Sign out</a><h1>
 <div><form action="/post/new" method="post">
 <textarea rows="10" cols="50" maxlength="140" id="postdata" name="postdata" required="true"></textarea><br>
 <input type="submit" class="mybutton " id="newpost" value="Tweet">
-<a href="/account/logout" class="mybutton" id="signout">Sign out</a>
-
 </form>
 </div>
-<div>
-<form action = /follow method="post">
-<input type=input name="follow" id="follow" required="true">
-<input type=submit class = "mybutton" value ="Follow">{{message}}</form>
-</div>
-<div>
 {% block body %}
 	<u1 class = "post_table">
 		

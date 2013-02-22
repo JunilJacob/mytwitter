@@ -1,4 +1,3 @@
-
 <style type ="text/css">
 .post_table {
 
@@ -37,7 +36,7 @@
 
 }.post_table table{
 
-	width:70%;
+	width:15%;
 
 	height:10%;
 
@@ -142,7 +141,7 @@
 
 	border-width:0px 1px 1px 0px;
 
-	text-align:left;
+	text-align:center;
 
 	padding:7px;
 
@@ -167,6 +166,7 @@
 	border-width:0px 0px 0px 0px;
 
 }
+
 .mybutton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
@@ -225,33 +225,26 @@ textarea {
 .space {
 margin-left:10px;
 }
-</style>
-<html><title>My twitter:Home</title><h1>Hai {{ user }},  <a href="/following" class="mybutton space">Following</a><a href="/search" class="mybutton space">Search</a><a href="/account/logout" class="mybutton space" id="signout">Sign out</a><h1>
-<div><form action="/post/new" method="post">
-<textarea rows="10" cols="50" maxlength="140" id="postdata" name="postdata" required="true"></textarea><br>
-<input type="submit" class="mybutton " id="newpost" value="Tweet">
-</form>
-</div>
-{% block body %}
-	<u1 class = "post_table">
-		
-			
-		{% if entries %}
-			<table>
-				<tr>
-		        <td>Tweets</td>
-		        <td>User</td>
-		        </tr>
-		{% for entry in entries %}		
-				<tr>
-		        <td>{{entry.post}}</td>
-		        <td>{{entry.username}}</td>
-		        </tr>
-	    {% endfor %}
-    		</table>
-		{% endif %}		
-	</u1>
-{% endblock %}
-</div>
-</html>
 
+
+</style>
+
+
+<title>My twitter:Home</title><h1>Hai {{ user }},<a href="/account/logout" class="mybutton space" id="signout">Sign out</a><a href="/" class="mybutton space" id="home">Home</a><h1>
+<u1 class = "post_table">
+{% if entries %}
+<table>
+				<tr>
+		        <td>User</td>
+				<td>Action</td>
+		        </tr>
+{% for entry in entries %}		
+			<tr>
+			<td>{{entry.username}}</td><td><a href="/unfollow?user={{entry.username}}">unfollow</a></td>
+			</tr>
+	    {% endfor %}
+</table>
+{% else %}
+<br>You are not following any users
+{% endif%}
+</u1>
